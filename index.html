@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Notes LocalStorage </title>
+</head>
+<body>
+    <h2>Заметки -  список БАДов</h2>
+    <div id="container">
+    </div>
+    <div><input type="text"
+        id="newNote" required><button onclick="addNote();">Добавить заметку</button></div>
+    <div id="errors" ></div>
+    <script>
+        const notes = ["хлорофилл","глицинат магния","симбионты Кутушева","кора кошачьего дерева"];
+        let errors = [];
+        
+        function addNote (){
+            let name = document.getElementById("newNote").value;
+            if (localStorage.getItem('name') ==null){
+            localStorage.setItem('name',name);
+         }
+          notes.push(name);
+            generateNote ();
+        }
+        function generateNote (){
+            let optionString = "";
+    for (let note of notes){
+        optionString += `<div><input type='checkbox'><span>${note}</span><div>`;
+        }
+        document.getElementById("container").innerHTML = optionString;
+        }
+        document.addEventListener ("DOMContentLoaded",function(){
+        let name = localStorage.getItem('name');
+        if (name != null) {
+            document.getElementById("newNote").value = name;
+        }
+
+        generateNote ();
+    
+        });
+    </script>
+</body>
+</html>
